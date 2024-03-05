@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git branch: 'project-1', url: 'https://github.com/GOWTHAMSAMMANGI/Upgrad-Capstone-1-Python.git'
+                git branch: 'project-2', url: 'https://github.com/GOWTHAMSAMMANGI/Upgrad-Capstone-2-Nodejs.git'
             }
         }
         
