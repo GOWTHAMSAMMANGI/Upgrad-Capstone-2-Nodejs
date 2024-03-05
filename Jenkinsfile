@@ -34,23 +34,23 @@ pipeline {
             sh "docker rmi $registry:v$BUILD_NUMBER"
           }
         }
-        // stage('Deploying container to Kubernetes') {
-        //    steps {
-        //        script {
-        //             def serviceExists = ""
-        //            serviceExists = sh(script: "kubectl get services crud-svc -n default | grep crud-svc | awk '{ print \$1}'", returnStdout: true).trim()
-        //             echo serviceExists 
-        //             if (serviceExists == "crud-svc" ) {
-        //                  sh "echo 'Upgrading...'"
-        //                 sh "helm upgrade crudapp crud --set appimage=${registry}:v${BUILD_NUMBER}"
+        stage('Deploying container to Kubernetes') {
+           steps {
+               script {
+                    def serviceExists = ""
+                   serviceExists = sh(script: "kubectl get services crud-svc -n default | grep crud-svc | awk '{ print \$1}'", returnStdout: true).trim()
+                    echo serviceExists 
+                    if (serviceExists == "crud-svc" ) {
+                         sh "echo 'Upgrading...'"
+                        sh "helm upgrade crudapp crud --set appimage=${registry}:v${BUILD_NUMBER}"
                     
-        //             } else {
-        //                  sh "echo 'Installing...'"
-        //                  sh "helm install crudapp crud --set appimage=${registry}:v${BUILD_NUMBER}"
-        //                 }
-        //        }
-        //     }
-        // }    
+                    } else {
+                         sh "echo 'Installing...'"
+                         sh "helm install crudapp crud --set appimage=${registry}:v${BUILD_NUMBER}"
+                        }
+               }
+            }
+        }    
         // stage('Monitoring with Prometheus & Grafana') {
         //    steps {
         //         sh "helm repo add prometheus-community https://prometheus-community.github.io/helm-charts"
