@@ -70,9 +70,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/user/:id', loadUser, function (req, res) {
-  res.send('user id:' + req.user.name);
-  res.send('email id: ' + req.user.email);
-  res.send('His role: ' + req.user.role);
+  res.send('Viewing user ' + req.user.name);
 });
 
 app.get('/user/:id/edit', loadUser, andRestrictToSelf, function (req, res) {
